@@ -1,8 +1,8 @@
 -- Create database
 
+DROP DATABASE IF EXISTS threadit;
 CREATE DATABASE threadit;
-
-USE threadit;
+USE threadit; -- MySQL command
 
 -- Create t1he tables for the threadit database
 
