@@ -1,8 +1,8 @@
 -- Create database
 
-CREATE DATABASE 'threadit';
+CREATE DATABASE threadit;
 
-USE 'threadit';
+USE threadit;
 
 -- Create t1he tables for the threadit database
 
