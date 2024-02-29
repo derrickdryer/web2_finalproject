@@ -1,7 +1,17 @@
+-- Purpose: Create the threadit database and tables
+-- Author: Derrick Dryer
+-- Date: 2024-02-29
+-- Version: 1.0
+-- License: MIT
+-- Notes: This setup file is for phpMyAdmin using MariaDB, it may not work on other databases. Additonally it is set up for local use only, it is not secure for production use.
+
+-- Create the database, drop and remake if it exists
 DROP DATABASE IF EXISTS threadit;
 CREATE DATABASE threadit;
+-- MySQL Command, make sure to use the correct database
 USE threadit;
 
+-- Create threadit tables
 CREATE TABLE USERS (
   userID INT PRIMARY KEY AUTO_INCREMENT,
   userName VARCHAR(18) NOT NULL,
@@ -52,9 +62,11 @@ CREATE TABLE COMMENTS (
   FOREIGN KEY (threadID) REFERENCES THREADS(threadID)
 );
 
+-- Create threadit database users
 CREATE USER threadit@localhost IDENTIFIED BY 'pa55word';
 CREATE USER threadit_users@localhost IDENTIFIED BY 'pa55word';
 
+-- 1Grant privileges to threadit database users
 GRANT ALL PRIVILEGES
 ON threadit.*
 TO threadit@localhost;
@@ -71,6 +83,7 @@ GRANT SELECT ON
 threadit.*
 TO threadit_users@localhost;
 
+--1 Insert some data into the tables
 INSERT INTO USERS
 (userName, userPassword, userEmail, userBio)
 VALUES
