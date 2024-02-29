@@ -12,14 +12,14 @@ CREATE TABLE USERS (
   userPassword VARCHAR(24) NOT NULL,
   userEmail VARCHAR(255) NOT NULL,
   userCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  userBio TEXT,
+  userBio TEXT(500),
   userAvatar BLOB
 );
 
 CREATE TABLE COMMUNITY (
   communityID INT PRIMARY KEY AUTO_INCREMENT,
   communityName VARCHAR(24) NOT NULL,
-  communityDesc TEXT,
+  communityDesc TEXT(1000),
   communityCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   communityAvatar BLOB,
   communityPrivacy BOOLEAN DEFAULT FALSE
@@ -40,7 +40,7 @@ CREATE TABLE THREADS (
   userID INT,
   communityID INT,
   threadTitle VARCHAR(255) NOT NULL,
-  threadContent TEXT,
+  threadContent TEXT(2500) NOT NULL,
   threadCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (userID) REFERENCES USERS(userID),
   FOREIGN KEY (communityID) REFERENCES COMMUNITY(communityID)
@@ -50,7 +50,7 @@ CREATE TABLE COMMENTS (
   commentID INT PRIMARY KEY AUTO_INCREMENT,
   userID INT,
   threadID INT,
-  commentContent TEXT,
+  commentContent TEXT(1500) NOT NULL,
   commentCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (userID) REFERENCES USERS(userID),
   FOREIGN KEY (threadID) REFERENCES THREADS(threadID)
