@@ -59,13 +59,17 @@ GRANT ALL PRIVILEGES
 ON threadit.*
 TO threadit@localhost;
 
-GRANT SELECT ON
-COMMUNITY, THREADS, COMMENTS
-TO threadit.users@localhost;
+GRANT INSERT, UPDATE ON
+threadit.THREADS
+TO threadit_users@localhost;
 
 GRANT INSERT, UPDATE ON
-THREADS, COMMENTS
-TO threadit.users@localhost;
+threadit.COMMENTS
+TO threadit_users@localhost;
+
+GRANT SELECT ON
+threadit.*
+TO threadit_users@localhost;
 
 INSERT INTO USERS
 (userName, userPassword, userEmail, userBio)
