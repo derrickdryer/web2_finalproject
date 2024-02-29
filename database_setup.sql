@@ -1,26 +1,22 @@
--- Create database
-
 DROP DATABASE IF EXISTS threadit;
 CREATE DATABASE threadit;
-USE threadit; -- MySQL command
-
--- Create t1he tables for the threadit database
+USE threadit;
 
 CREATE TABLE USERS (
   userID INT PRIMARY KEY AUTO_INCREMENT,
   userName VARCHAR(18) NOT NULL,
   userPassword VARCHAR(24) NOT NULL,
   userEmail VARCHAR(255) NOT NULL,
-  userCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  userBio TEXT(500),
+  userCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  userBio TINYTEXT,
   userAvatar BLOB
 );
 
 CREATE TABLE COMMUNITY (
   communityID INT PRIMARY KEY AUTO_INCREMENT,
   communityName VARCHAR(24) NOT NULL,
-  communityDesc TEXT(1000),
-  communityCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  communityDesc MEDIUMTEXT,
+  communityCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   communityAvatar BLOB,
   communityPrivacy BOOLEAN DEFAULT FALSE
 );
@@ -40,7 +36,7 @@ CREATE TABLE THREADS (
   userID INT,
   communityID INT,
   threadTitle VARCHAR(255) NOT NULL,
-  threadContent TEXT(2500) NOT NULL,
+  threadContent MEDIUMTEXT NOT NULL,
   threadCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (userID) REFERENCES USERS(userID),
   FOREIGN KEY (communityID) REFERENCES COMMUNITY(communityID)
@@ -50,30 +46,26 @@ CREATE TABLE COMMENTS (
   commentID INT PRIMARY KEY AUTO_INCREMENT,
   userID INT,
   threadID INT,
-  commentContent TEXT(1500) NOT NULL,
+  commentContent TEXT NOT NULL,
   commentCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (userID) REFERENCES USERS(userID),
   FOREIGN KEY (threadID) REFERENCES THREADS(threadID)
 );
 
--- Grant pri1vileges to the threadit admins and users
+CREATE USER threadit@localhost IDENTIFIED BY 'pa55word';
+CREATE USER threadit_users@localhost IDENTIFIED BY 'pa55word';
 
 GRANT ALL PRIVILEGES
 ON threadit.*
-TO threadit@localhost
-IDENTIFIED BY 'pa55word';
+TO threadit@localhost;
 
 GRANT SELECT ON
 COMMUNITY, THREADS, COMMENTS
-TO threadit.users@localhost
-IDENTIFIED BY 'pa55word';
+TO threadit.users@localhost;
 
 GRANT INSERT, UPDATE ON
 THREADS, COMMENTS
-TO threadit.users@localhost
-IDENTIFIED BY 'pa55word';
-
--- Insert dummy data into the tables
+TO threadit.users@localhost;
 
 INSERT INTO USERS
 (userName, userPassword, userEmail, userBio)
@@ -144,5 +136,3 @@ INSERT INTO COMMENTS
 (userID, threadID, commentContent)
 VALUES
 (2, 2, 'I love threadit, I am a user, but an admin in this community');
-
--- End of database file
