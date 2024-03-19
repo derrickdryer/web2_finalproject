@@ -10,10 +10,13 @@
             <h1>Login</h1>
             <div id="login-form">
                 <form action="" method="GET">
+                    <?php if ($error != "") { ?>
+                        <p><?php echo $error; ?></p>
+                    <?php } ?>
                     <label for="userName">Username: </label>
                     <input type="text" name="userName" value="">
                     <label for="userPassword">Password: </label>
-                    <input type="text" name="userPassword" value="">
+                    <input type="password" name="userPassword" value="">
                     <button type="submit" name="action" value="login">Login</button>
                 </form>
             </div>

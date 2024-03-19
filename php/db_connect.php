@@ -1,6 +1,6 @@
 <?php
     # For simplicity, login with root
-    $dsn = 'mysql:host=localhost;dbname=my_guitar_shop2';
+    $dsn = 'mysql:host=localhost;dbname=threadit';
     $username = 'root';
     $password = '';
 
