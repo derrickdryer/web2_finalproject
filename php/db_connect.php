@@ -7,10 +7,10 @@
     # Try and catch any errors
     try {
         $db = new PDO($dsn, $username, $password);
-        echo '<p> You are connected. </p>';
+        echo '<center><p> You are connected. </p></center>';
     }
     catch (PDOException $e){
         $error_message = $e->getMessage();
-        echo '<p> Connection failed due to error : $error_message </p>';
+        echo '<center><p> Connection failed due to error : $error_message </p></center>';
     }
 ?>

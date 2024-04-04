@@ -7,7 +7,7 @@
     <body>
         <!-- Basic Login Form via GET Method -->
         <div id="register">
-            <h1>Login</h1>
+            <h1>Registration</h1>
             <div id="register-form">
                 <form action="" method="GET">
                     <label for="userEmail">E-Mail: </label>
