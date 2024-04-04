@@ -4,6 +4,7 @@
         session_start();
     }
 
+    //$_SESSION['userName'] = 'test'; // Test purposes only
     // Clear session, test purposes only
     //session_unset();
 
@@ -38,12 +39,15 @@
     <div id='navbar'>
         <h1>Threadit</h1>
         <div class="dropdown">
-        <button class="dropbtn">Account</button>
+        <button class="dropbtn"><?php if (isset($_SESSION['userName'])) { echo $_SESSION['userName']; } else { echo 'Account';} ?></button>
             <div class="dropdown-content">
                 <?php
                     if (isset($_SESSION['userName'])) {
                         // User is logged in
                         echo '<a href="./profile/">Profile</a>';
+                        if ($_SESSION['userName'] == 'admin') {
+                            echo '<a href="./admin/">Admin</a>';
+                        }
                         echo '<a href="./logout/">Logout</a>';
                     } else {
                         // User is not logged in
@@ -55,13 +59,20 @@
         </div>
     </div>
     <main>
-        <?php foreach ($threads as $thread): ?>
-            <div class="thread">
-                <h2 class="thread-title"><?= $thread['threadTitle'] ?></h2>
-                <p class="thread-subtitle">Created by <?= $thread['userName'] ?> on <?= $thread['threadCreated'] ?></p>
-                <p class="thread-content"><?= substr($thread['threadContent'], 0, 100) ?>...</p>
-            </div>
-        <?php endforeach; ?>
+        <?php if (isset($_SESSION['userName'])): ?>
+            <?php foreach ($threads as $thread): ?>
+                <div class="thread">
+                    <h2 class="thread-title"><?= $thread['threadTitle'] ?></h2>
+                    <p class="thread-subtitle">Created by <?= $thread['userName'] ?> on <?= $thread['threadCreated'] ?></p>
+                    <p class="thread-content"><?= substr($thread['threadContent'], 0, 100) ?>...</p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <center><h1>Welcome to Threadit</h1>
+            <p>Please login to view threads</p>
+            <br>
+            <iframe src="./img/login.gif" width="500" height="500" frameBorder="0" allowFullScreen></center>
+        <?php endif; ?>
     </main>
 </body>
 </html>

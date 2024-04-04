@@ -18,13 +18,13 @@
     $error = "";
 
     // Filter action
-    $action = filter_input(INPUT_GET, 'action');
+    $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL) {
         $action = "";
     }
     if ($action == 'login') {
-        $userName = filter_input(INPUT_GET, 'userName');
-        $userPassword = filter_input(INPUT_GET, 'userPassword');
+        $userName = filter_input(INPUT_POST, 'userName');
+        $userPassword = filter_input(INPUT_POST, 'userPassword');
         $query = 'SELECT * FROM USERS WHERE userName = :userName AND userPassword = :userPassword';
         $statement = $db->prepare($query);
         $statement->bindValue(':userName', $userName);
@@ -40,6 +40,11 @@
             $error = "Invalid username or password.";
         }
     }
-
-    include('./login.php');
+    // If user is unset, display login form
+    if (!isset($_SESSION['userName'])) {
+        include('./login.php');
+    } else {
+        echo '<p> You are already logged in. </p>';
+        header("Location: ../.");
+    }
 ?>

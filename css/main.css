@@ -35,6 +35,16 @@ main {
     display: block;
 }
 
+.dropdown-content a:hover {
+    background-color: #ddd; /* Change this to your desired hover color */
+    color: black;
+}
+
+.dropdown-content a:active {
+    background-color: #bbb; /* Change this to your desired active color */
+    color: white;
+}
+
 .dropdown:hover .dropdown-content {
     display: block;
 }
@@ -48,16 +58,8 @@ main {
     cursor: pointer;
 }
 
-.dropbtn:hover, .dropbtn:focus {
+.drop:hover, .dropbtn:focus {
     background-color: #777;
-}
-
-.dropbtn a:hover {
-    background-color: #777;
-} 
-
-.dropbtn a:active {
-    background-color: #f1f1f1;
 }
 
 #navbar {

@@ -9,7 +9,7 @@
         <div id="login">
             <h1>Login</h1>
             <div id="login-form">
-                <form action="" method="GET">
+                <form action="" method="post">
                     <?php if ($error != "") { ?>
                         <p><?php echo $error; ?></p>
                     <?php } ?>
