@@ -9,6 +9,11 @@ main {
     margin-top: 20px; /* Adjust this value as needed */
 }
 
+#success-notification, #error-notification {
+    color: white;
+    text-align: center;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
