@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Threadit</title>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content='A simple forum website'>
+    <meta name='keywords' content='forum, threads, posts'>
+    <meta name='author' content='Threadit'>
+    <link rel='stylesheet' type='text/css' href='main.css'>
+</head>
+<body>
+    <div id='navbar'>
+        <h1>Threadit</h1>
+        <a href="new_thread.html" class="new-thread-link">New Thread</a>
+        <div class="dropdown">
+            <button class="dropbtn">Communities</button>
+            <div class="dropdown-content">
+                <a href="community.html">My Community</a>
+                <a href="find_community.html">Find Community</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Menu</button>
+            <div class="dropdown-content">
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html">Admin</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+    </div>
+    <main>
+        <div id="public-threads">
+            <h1>Public Threads</h1>
+            <div id="threads">
+                <div class="thread">
+                    <h2 class="thread-title">Thread Title</h2>
+                    <p class="thread-subtitle">Created by Username on Date</p>
+                    <p class="thread-content">Thread Content...</p>
+                    <div class="comments">
+                        <h3>Comments</h3>
+                        <div class="comment">
+                            <p class="comment-content">Comment Content</p>
+                            <p class="comment-author">Posted by Username on Date</p>
+                        </div>
+                        <!-- More comments... -->
+                    </div>
+                </div>
+                <!-- More threads... -->
+            </div>
+        </div>
+    </main>
+</body>
+</html>
