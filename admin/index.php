@@ -1,0 +1,3 @@
+<?php
+    $isAdminPage = true;
+?>

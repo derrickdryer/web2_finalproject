@@ -1,4 +1,5 @@
 <?php
+    $isHomePage = true;
     // Check to see if session is already started
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -36,28 +37,7 @@
     <link rel='stylesheet' type='text/css' href='./css/main.css'>
 </head>
 <body>
-    <div id='navbar'>
-        <h1>Threadit</h1>
-        <div class="dropdown">
-        <button class="dropbtn"><?php if (isset($_SESSION['userName'])) { echo $_SESSION['userName']; } else { echo 'Account';} ?></button>
-            <div class="dropdown-content">
-                <?php
-                    if (isset($_SESSION['userName'])) {
-                        // User is logged in
-                        echo '<a href="./profile/">Profile</a>';
-                        if ($_SESSION['userName'] == 'admin') {
-                            echo '<a href="./admin/">Admin</a>';
-                        }
-                        echo '<a href="./logout/">Logout</a>';
-                    } else {
-                        // User is not logged in
-                        echo '<a href="./login/">Login</a>';
-                        echo '<a href="./register/">Register</a>';
-                    }
-                ?>
-            </div>
-        </div>
-    </div>
+    <?php include('./navbar.php'); ?>
     <main>
         <?php if (isset($_SESSION['userName'])): ?>
             <?php foreach ($threads as $thread): ?>
