@@ -25,19 +25,23 @@
     if ($action == 'login') {
         $userName = filter_input(INPUT_POST, 'userName');
         $userPassword = filter_input(INPUT_POST, 'userPassword');
-        $query = 'SELECT * FROM USERS WHERE userName = :userName AND userPassword = :userPassword';
+        // Query database for hashed password
+        $query = 'SELECT userPassword FROM USERS WHERE userName = :userName';
         $statement = $db->prepare($query);
         $statement->bindValue(':userName', $userName);
-        $statement->bindValue(':userPassword', $userPassword);
         $statement->execute();
         $user = $statement->fetch();
         $statement->closeCursor();
         if ($user) {
-            $_SESSION['userName'] = $userName;
-            //header("Location: ../index.php");
-            echo '<p> You are logged in. </p>';
+            // Verify hashed password
+            if (password_verify($userPassword, $user['userPassword'])) {
+                $_SESSION['userName'] = $userName;
+                echo '<p> You are logged in. </p>';
+            } else {
+                $error = "Invalid username or password.";
+            }
         } else {
-            $error = "Invalid username or password.";
+            $error = "Invalid username.";
         }
     }
     // If user is unset, display login form

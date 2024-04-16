@@ -31,11 +31,20 @@
                         if ($_SESSION['userName'] == 'admin') {
                             echo '<a href="./admin/">Admin</a>';
                         }
-                        echo '<a href="./logout/">Logout</a>';
+                        if (isset($isHomePage) && $isHomePage == true) {
+                            echo '<a href="./logout/">Logout</a>';
+                        } else {
+                            echo '<a href="../logout/">Logout</a>';
+                        }
                     } else {
                         // User is not logged in
-                        echo '<a href="./login/">Login</a>';
-                        echo '<a href="./register/">Register</a>';
+                        if (isset($isHomePage) && $isHomePage == true) {
+                            echo '<a href="./login/">Login</a>';
+                            echo '<a href="./register/">Register</a>';
+                        } else {
+                            echo '<a href="../login/">Login</a>';
+                            echo '<a href="../register/">Register</a>';
+                        }
                     }
                 ?>
             </div>

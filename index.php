@@ -8,9 +8,34 @@
     //$_SESSION['userName'] = 'test'; // Test purposes only
     // Clear session, test purposes only
     //session_unset();
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
     // Query all public threads
-    require_once('./php/db_connect.php');
+    require('./php/db_connect.php');
+    // Manually hash passwords for database users
+    $adminPassword = password_hash('admin', PASSWORD_DEFAULT);
+    $userPassword = password_hash('user', PASSWORD_DEFAULT);
+    $sql = "
+    UPDATE USERS
+    SET userPassword = '{$adminPassword}'
+    WHERE userName = 'admin';
+    ";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+
+    // Update user password
+    $sql = "
+    UPDATE USERS
+    SET userPassword = '{$userPassword}'
+    WHERE userName = 'user';
+    ";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+
+    $statement->closeCursor();
+
     $query = "SELECT t.threadTitle, t.threadContent, t.threadCreated, u.userName, c.communityName 
                 FROM THREADS t, COMMUNITY c, USERS u, USERS_TO_COMMUNITY utc
                 WHERE t.communityID = c.communityID

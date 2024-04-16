@@ -16,6 +16,8 @@
                     <input type="text" name="userName" value="">
                     <label for="userPassword">Password: </label>
                     <input type="text" name="userPassword" value="">
+                    <label for="userPassword2">Verify Password: </label>
+                    <input type="text" name="userPassword2" value="">
                     <button type="submit" name="action" value="login">Register</button>
                 </form>
             </div>
