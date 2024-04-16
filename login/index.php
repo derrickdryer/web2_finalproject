@@ -26,7 +26,7 @@
         $userName = filter_input(INPUT_POST, 'userName');
         $userPassword = filter_input(INPUT_POST, 'userPassword');
         // Query database for hashed password
-        $query = 'SELECT userPassword FROM USERS WHERE userName = :userName';
+        $query = 'SELECT userPassword, userID FROM USERS WHERE userName = :userName';
         $statement = $db->prepare($query);
         $statement->bindValue(':userName', $userName);
         $statement->execute();
@@ -36,6 +36,7 @@
             // Verify hashed password
             if (password_verify($userPassword, $user['userPassword'])) {
                 $_SESSION['userName'] = $userName;
+                $_SESSION['userID'] = $user['userID'];
                 echo '<p> You are logged in. </p>';
             } else {
                 $error = "Invalid username or password.";

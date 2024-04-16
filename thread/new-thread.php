@@ -3,23 +3,11 @@
     <head>
         <title>New Thread</title>
         <link rel="stylesheet" type="text/css" href="../css/main.css">
-        <script>
-            function updateCountdown() {
-                var remaining = 500 - jQuery('#content').val().length;
-                jQuery('.countdown').text(remaining + ' characters remaining.');
-            }
-
-            jQuery(document).ready(function($) {
-                updateCountdown();
-                $('#content').change(updateCountdown);
-                $('#content').keyup(updateCountdown);
-            });
-        </script>
     </head>
     <body>
         <?php include('../navbar.php'); ?>
-
-        <form action="post_thread.php" method="post">
+        <h1><?php echo $error; ?></h1>
+        <form action="./index.php" method="post">
             <label for="community">Choose a community:</label>
             <select name="community" id="community">
                 <?php foreach ($communities as $community): ?>
@@ -35,7 +23,7 @@
             <textarea id="content" name="content" maxlength="500"></textarea>
             <div class="countdown"></div>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="submit" name="submit">
         </form>
     </body>
 </html>

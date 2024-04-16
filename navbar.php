@@ -7,9 +7,11 @@
             </div>
         <?php endif; ?>
             <?php if (isset($_SESSION['userName'])) : ?>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="location.href='./thread/'">New Thread</button>
-                </div>
+                <?php if (!isset($isNewThreadPage)) : ?>
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="location.href='./thread/'">New Thread</button>
+                    </div>
+                <?php endif; ?>
                 <?php if (!isset($isCommunityPage)) : ?>
                     <div class="dropdown">
                         <button class="dropbtn">Communities</button>
