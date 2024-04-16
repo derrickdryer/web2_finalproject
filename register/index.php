@@ -5,53 +5,48 @@
         //There is no active session
         session_start();
     }
-    $error = array();
 
-    // Database connection
     require_once('../php/db_connect.php');
 
-    $register = filter_input(INPUT_GET, 'action');
-    if (!isset($register)) {
-        $email = filter_input(INPUT_GET, 'userEmail', FILTER_VALIDATE_EMAIL);
-        $name = filter_input(INPUT_GET, 'userName');
-        $password = filter_input(INPUT_GET, 'userPassword');
-        $password2 = filter_input(INPUT_GET, 'userPassword2');
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
+    $error = "";
+
+    $action = filter_input(INPUT_POST, 'register');
+    if ($action == NULL) {
+        $action = "";
     }
-    if (empty($email)) {
-        $error['email'] = 'Please enter a valid email address.';
-    }
-    if (empty($name)) {
-        $error['name'] = 'Please enter a valid username.';
-    } else {
-        $query = 'SELECT * FROM users WHERE username = :name';
+    if ($action == 'register') {
+        $userEmail = filter_input(INPUT_POST, 'userEmail');
+        $userName = filter_input(INPUT_POST, 'userName');
+        $userPassword = filter_input(INPUT_POST, 'userPassword');
+        $userPassword2 = filter_input(INPUT_POST, 'userPassword2');
+        if ($userPassword != $userPassword2) {
+            $error = "Passwords do not match.";
+        }
+        $query = 'SELECT userName FROM USERS WHERE userName = :userName';
         $statement = $db->prepare($query);
-        $statement->bindValue(':name', $name);
+        $statement->bindValue(':userName', $userName);
         $statement->execute();
-        $user = $statement->fetch();
+        if ($statement->rowCount() > 0) {
+            $error = "Username already exists.";
+        }
         $statement->closeCursor();
-        if ($user) {
-            $error['name'] = 'Username already exists.';
+        if ($error == "") {
+            $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+            $query = 'INSERT INTO USERS (userName, userPassword, userEmail) VALUES (:userName, :userPassword, :userEmail)';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userName', $userName);
+            $statement->bindValue(':userPassword', $hashedPassword);
+            $statement->bindValue(':userEmail', $userEmail);
+            $statement->execute();
+            $statement->closeCursor();
+            $_SESSION['userName'] = $userName;
+            header("Location: ../.");
         }
-    }
 
-    if (empty($password != $password2)) {
-        $error['password'] = 'Passwords do not match.';
-    }
-
-    if (empty($error)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = 'INSERT INTO users (email, username, password) VALUES (:email, :name, :password)';
-        $statement = $db->prepare($query);
-        $statement->bindValue(':email', $email);
-        $statement->bindValue(':name', $name);
-        $statement->bindValue(':password', $hashedPassword);
-        if ($statement->execute()) {
-            $_SESSION['user'] = $name;
-            header('Location: ../login/');
-            exit();
-        } else {
-            $error['register'] = 'Registration failed.';
-        }
     }
 
     include('./register.php');

@@ -9,16 +9,16 @@
         <div id="register">
             <h1>Registration</h1>
             <div id="register-form">
-                <form action="" method="GET">
+                <form action="" method="post">
                     <label for="userEmail">E-Mail: </label>
                     <input type="email" name="userEmail" value="">
                     <label for="userName">Username: </label>
                     <input type="text" name="userName" value="">
                     <label for="userPassword">Password: </label>
-                    <input type="text" name="userPassword" value="">
+                    <input type="password" name="userPassword" value="">
                     <label for="userPassword2">Verify Password: </label>
-                    <input type="text" name="userPassword2" value="">
-                    <button type="submit" name="action" value="login">Register</button>
+                    <input type="password" name="userPassword2" value="">
+                    <button type="submit" name="register" value="register">Register</button>
                 </form>
             </div>
         </div>
