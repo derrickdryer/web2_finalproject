@@ -54,6 +54,16 @@ CREATE TABLE COMMENTS (
   FOREIGN KEY (threadID) REFERENCES THREADS(threadID)
 );
 
+CREATE TABLE JOIN_REQUESTS (
+  requestID INT PRIMARY KEY AUTO_INCREMENT,
+  userID INT,
+  communityID INT,
+  requestCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+  FOREIGN KEY (userID) REFERENCES USERS(userID),
+  FOREIGN KEY (communityID) REFERENCES COMMUNITY(communityID)
+);
+
 DROP USER IF EXISTS threadit@localhost;
 CREATE USER threadit@localhost IDENTIFIED BY 'pa55word';
 DROP USER IF EXISTS threadit_users@localhost;

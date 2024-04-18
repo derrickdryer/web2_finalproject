@@ -15,10 +15,23 @@
 
     require_once('../php/db_connect.php');
 
-    $queryAllCommunities = "SELECT * FROM COMMUNITY";
-    $statement = $db->prepare($queryAllCommunities);
+    $queryCommunity = "SELECT * FROM COMMUNITY WHERE communityID = 2";
+    $statement = $db->prepare($queryCommunity);
     $statement->execute();
-    $communities = $statement->fetchAll();
+    $community = $statement->fetch();
+    $statement->closeCursor();
+
+    $query = "SELECT t.threadTitle, t.threadContent, t.threadCreated, u.userName, c.communityName 
+                FROM THREADS t, COMMUNITY c, USERS u, USERS_TO_COMMUNITY utc
+                WHERE t.communityID = c.communityID
+                AND t.userID = u.userID
+                AND c.communityID = utc.communityID
+                AND utc.userID = u.userID
+                AND c.communityID = 2
+                ORDER BY t.threadCreated DESC;";
+    $statement=$db->prepare($query);
+    $statement->execute();
+    $threads = $statement->fetchAll();
     $statement->closeCursor();
 
     include('./display.php');
