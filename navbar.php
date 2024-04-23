@@ -9,16 +9,15 @@
             <?php if (isset($_SESSION['userName'])) : ?>
                 <?php if (!isset($isNewThreadPage)) : ?>
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="location.href='./thread/'">New Thread</button>
+                        <button class="dropbtn" onclick="location.href='http://localhost/web2_finalproject/thread/'">New Thread</button>
                     </div>
                 <?php endif; ?>
                 <?php if (!isset($isCommunityPage)) : ?>
                     <div class="dropdown">
                         <button class="dropbtn">Communities</button>
                         <div class="dropdown-content">
-                            <a href="./community/">All Communities</a>
                             <a href="./community/membership.php">My Communities</a>
-                            <a href="./community/join.php">Join Community</a>
+                            <a href="./community/join/">Join Community</a>
                             <a href="./community/create.php">Create Community</a>
                         </div>
                     </div>

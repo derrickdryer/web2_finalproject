@@ -120,11 +120,6 @@ INSERT INTO USERS_TO_COMMUNITY
 VALUES
 (2, 2, 'admin');
 
-INSERT INTO USERS_TO_COMMUNITY
-(userID, communityID, role)
-VALUES
-(1, 2, 'member');
-
 INSERT INTO THREADS
 (userID, communityID, threadTitle, threadContent)
 VALUES
