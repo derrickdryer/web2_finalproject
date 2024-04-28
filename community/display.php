@@ -8,9 +8,11 @@
     <?php include('../navbar.php'); ?>
     <div class="sidebar">
         <!-- Community information goes here -->
-        <img src="data:image/webp;base64,<?= base64_encode($community['communityAvatar']) ?>" alt="<?= $community['communityName'] ?>">
         <h3><?= $community['communityName'] ?></h3>
         <p><?= $community['communityDesc'] ?></p>
+        <?php if ($role == 'admin'): ?>
+            <a href="http://localhost/web2_finalproject/community/admin/index.php?communityID=<?php echo $community['communityID']; ?>">Admin Dashboard</a>
+        <?php endif; ?>
     </div>
     <div class="content">
         <!-- Threads go here -->

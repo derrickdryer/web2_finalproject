@@ -17,7 +17,7 @@
 
     $error = '';
 
-    $action = filter_input(INPUT_POST, 'register');
+    $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL) {
         $action = "";
     }
@@ -39,22 +39,24 @@
         require_once('../../php/db_connect.php');
         $communityID = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $query = "INSERT INTO USERS_TO_COMMUNITY (userID, communityID, role, joined) 
-                    VALUES ((SELECT userID FROM USERS WHERE userName = :userName), :communityID, 'member', NOW()";
+                    VALUES ((SELECT userID FROM USERS WHERE userName = :userName), :communityID, 'member', NOW())";
         $statement = $db->prepare($query);
         $statement->bindValue(':userName', $_SESSION['userName']);
         $statement->bindValue(':communityID', $communityID);
         $statement->execute();
         $statement->closeCursor();
+        header("Location: ../../index.php");
     } else if ($action == 'Request to Join') {
         require_once('../../php/db_connect.php');
         $communityID = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
         $query = "INSERT INTO JOIN_REQUESTS (userID, communityID, requestCreated, status) 
-                    VALUES ((SELECT userID FROM USERS WHERE userName = :userName), :communityID, NOW(), 'pending'";
+                    VALUES ((SELECT userID FROM USERS WHERE userName = :userName), :communityID, NOW(), 'pending')";
         $statement = $db->prepare($query);
         $statement->bindValue(':userName', $_SESSION['userName']);
         $statement->bindValue(':communityID', $communityID);
         $statement->execute();
         $statement->closeCursor();
+        header("Location: ../../index.php");
     }
 
     include('./communities.php');

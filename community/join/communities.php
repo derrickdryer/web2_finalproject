@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,14 +10,14 @@
     <center><h2>Communities</h2></center>
     <ul>
     <?php foreach($communities as $community) : ?>
-        <div class="community-box">
+        <li>
             <h3><?php echo $community['communityName']; ?></h3>
             <p><?php echo $community['communityDesc']; ?></p>
-            <form action="./." method="post">
+            <form action="./index.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $community['communityID']; ?>">
                 <input type="submit" name="action" value="<?php echo ($community['communityPrivacy'] == 0) ? 'Join' : 'Request to Join'; ?>">
             </form>
-        </div>
+        </li>
     <?php endforeach; ?>
     </ul>
 </body>
