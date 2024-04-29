@@ -44,16 +44,6 @@ CREATE TABLE THREADS (
   FOREIGN KEY (communityID) REFERENCES COMMUNITY(communityID)
 );
 
-CREATE TABLE COMMENTS (
-  commentID INT PRIMARY KEY AUTO_INCREMENT,
-  userID INT,
-  threadID INT,
-  commentContent TEXT NOT NULL,
-  commentCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (userID) REFERENCES USERS(userID),
-  FOREIGN KEY (threadID) REFERENCES THREADS(threadID)
-);
-
 CREATE TABLE JOIN_REQUESTS (
   requestID INT PRIMARY KEY AUTO_INCREMENT,
   userID INT,
@@ -63,27 +53,6 @@ CREATE TABLE JOIN_REQUESTS (
   FOREIGN KEY (userID) REFERENCES USERS(userID),
   FOREIGN KEY (communityID) REFERENCES COMMUNITY(communityID)
 );
-
-DROP USER IF EXISTS threadit@localhost;
-CREATE USER threadit@localhost IDENTIFIED BY 'pa55word';
-DROP USER IF EXISTS threadit_users@localhost;
-CREATE USER threadit_users@localhost IDENTIFIED BY 'pa55word';
-
-GRANT ALL PRIVILEGES
-ON threadit.*
-TO threadit@localhost;
-
-GRANT INSERT, UPDATE ON
-threadit.THREADS
-TO threadit_users@localhost;
-
-GRANT INSERT, UPDATE ON
-threadit.COMMENTS
-TO threadit_users@localhost;
-
-GRANT SELECT ON
-threadit.*
-TO threadit_users@localhost;
 
 INSERT INTO USERS
 (userName, userPassword, userEmail, userBio)
@@ -129,23 +98,3 @@ INSERT INTO THREADS
 (userID, communityID, threadTitle, threadContent)
 VALUES
 (2, 1, 'I love threadit', 'I love threadit, it is the best forum on the internet');
-
-INSERT INTO COMMENTS
-(userID, threadID, commentContent)
-VALUES
-(1, 1, 'Welcome to threadit, I am the admin');
-
-INSERT INTO COMMENTS
-(userID, threadID, commentContent)
-VALUES
-(2, 1, 'I love threadit, I am a user');
-
-INSERT INTO COMMENTS
-(userID, threadID, commentContent)
-VALUES
-(1, 2, 'I love threadit, I am the admin, but only a user in this community');
-
-INSERT INTO COMMENTS
-(userID, threadID, commentContent)
-VALUES
-(2, 2, 'I love threadit, I am a user, but an admin in this community');

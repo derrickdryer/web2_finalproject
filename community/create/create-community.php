@@ -11,6 +11,10 @@
         <input type="text" id="communityName" name="communityName">
         <label for="communityDesc">Community Description:</label>
         <textarea id="communityDesc" name="communityDesc"></textarea>
+        <label for="Privacy">Privacy:</label>
+        <select id="Privacy" name="Privacy">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
         <input type="submit" value="Create" name="submit">
     </form>
 </body>

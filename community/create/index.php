@@ -11,15 +11,22 @@
     require_once('../../php/db_connect.php');
     $communityName = filter_input(INPUT_POST, 'communityName');
     $communityDesc = filter_input(INPUT_POST, 'communityDesc');
+    $Privacy = filter_input(INPUT_POST, 'Privacy');
+    if ($Privacy == 'public') {
+        $Privacy = 0;
+    } else {
+        $Privacy = 1;
+    }
     if ($communityName == NULL || $communityDesc == NULL ||
         $communityName == false || $communityDesc == false) {
         $error = 'Content error. Please check all fields and try again.';
     } else {
         require_once('../../php/db_connect.php');
-        $query = "INSERT INTO COMMUNITY (communityName, communityDesc) VALUES (:communityName, :communityDesc)";
+        $query = "INSERT INTO COMMUNITY (communityName, communityDesc, communityPrivacy) VALUES (:communityName, :communityDesc, :Privacy)";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':communityName', $communityName);
         $stmt->bindValue(':communityDesc', $communityDesc);
+        $stmt->bindValue(':Privacy', $Privacy);
         $stmt->execute();
         $stmt->closeCursor();
 
