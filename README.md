@@ -15,3 +15,4 @@
 
 # Notes
 - Navigation bar links are hard coded, this is due to there being a single navbar file that all of the pages run in order for the user to navugate throughout the website.
+- Some things were cut at the end. This is due to me realizing the scope of the project was a bit too big. There are a lot more things I would like to add, but maybe at a later date as my own personal project. I learned a lot with this project especially juggling a site that has multiple pages each with their own tasks.
