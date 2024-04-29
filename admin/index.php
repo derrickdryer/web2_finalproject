@@ -10,7 +10,6 @@
 
     $action = filter_input(INPUT_GET, 'action');
 
-    // Delete communiy and threads under it
     if($action == 'dc') { // Delete Community
         require_once('../php/db_connect.php');
         $communityID = filter_input(INPUT_GET, 'communityid', FILTER_VALIDATE_INT);
